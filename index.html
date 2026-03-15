@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulário de Conclusão do Curso</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #2E4057;
+  --primary-light: #3d5470;
+  --bg: #f7f8fa;
+  --white: #ffffff;
+  --text: #1a1a2e;
+  --text-secondary: #555;
+  --border: #d0d5dd;
+  --error: #d32f2f;
+  --success: #2e7d32;
+  --accent: #e8a838;
+  --radius: 10px;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 20px 60px;
+}
+
+/* Hero — full width, flush to top */
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 260px;
+  overflow: hidden;
+  background: var(--primary);
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  position: absolute;
+  inset: 0;
+}
+
+.hero-overlay {
+  position: relative;
+  z-index: 1;
+  min-height: 260px;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.hero-overlay h1 {
+  font-family: 'Inter', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.hero-overlay p {
+  color: rgba(255,255,255,0.9);
+  font-size: 0.95rem;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+header {
+  text-align: center;
+  padding: 40px 0 32px;
+}
+
+header h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+header p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.form-section {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  margin-bottom: 16px;
+  border: 1px solid #e8eaed;
+}
+
+.form-section.mentoria-note {
+  background: #f0f4f8;
+  border: 1px solid #d6dfe8;
+  text-align: center;
+  padding: 20px 24px;
+}
+
+.mentoria-note p {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--primary);
+  line-height: 1.5;
+}
+
+.question-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.form-section label.main-label {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.form-section .sublabel {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+  padding-left: 38px;
+}
+
+.required-star { color: var(--error); margin-left: 4px; }
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: var(--text);
+  transition: border-color 0.2s;
+  background: #fafbfc;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: #fff;
+}
+
+textarea { resize: vertical; min-height: 100px; }
+
+/* Radio / Scale styles */
+.radio-group { display: flex; flex-direction: column; gap: 8px; }
+
+.radio-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #fafbfc;
+}
+
+.radio-option:hover { border-color: var(--primary-light); background: #f0f3f7; }
+
+.radio-option input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  margin-right: 12px;
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.radio-option input[type="radio"]:checked {
+  border-color: var(--primary);
+}
+
+.radio-option input[type="radio"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 10px; height: 10px;
+  background: var(--primary);
+  border-radius: 50%;
+}
+
+.radio-option:has(input:checked) {
+  border-color: var(--primary);
+  background: #eef2f7;
+}
+
+.radio-option span { font-size: 0.93rem; }
+
+/* NPS Scale */
+.nps-scale {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.nps-scale .nps-option {
+  position: relative;
+}
+
+.nps-scale input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  position: absolute;
+  opacity: 0;
+  width: 0; height: 0;
+}
+
+.nps-scale label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #fafbfc;
+  color: var(--text);
+}
+
+.nps-scale label:hover {
+  border-color: var(--primary-light);
+  background: #f0f3f7;
+}
+
+.nps-scale input[type="radio"]:checked + label {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.nps-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* Toggle */
+.toggle-container {
+  display: flex;
+  background: #eef0f3;
+  border-radius: 8px;
+  padding: 4px;
+  margin-bottom: 20px;
+}
+
+.toggle-btn {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-secondary);
+  transition: all 0.25s;
+}
+
+.toggle-btn.active {
+  background: var(--white);
+  color: var(--primary);
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Video Recorder */
+.video-area { position: relative; }
+
+#videoPreview, #videoPlayback {
+  width: 100%;
+  border-radius: 8px;
+  background: #000;
+  display: block;
+}
+
+#videoPreview { aspect-ratio: 16/9; object-fit: cover; }
+
+.video-controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.btn-record, .btn-stop, .btn-retake {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-record { background: #BA3E95; color: #fff; }
+.btn-record:hover { background: #a03580; }
+.btn-stop { background: #333; color: #fff; }
+.btn-stop:hover { background: #111; }
+.btn-retake { background: #eee; color: var(--text); }
+.btn-retake:hover { background: #ddd; }
+
+.record-timer {
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--error);
+  min-width: 60px;
+}
+
+.recording-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.recording-dot {
+  width: 10px; height: 10px;
+  background: var(--error);
+  border-radius: 50%;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+
+/* Checkbox */
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.checkbox-row input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px; height: 20px;
+  border: 2px solid var(--border);
+  border-radius: 4px;
+  flex-shrink: 0;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.checkbox-row input[type="checkbox"]:checked {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.checkbox-row input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 2px; left: 5px;
+  width: 6px; height: 10px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-row label {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+/* Submit */
+.submit-btn {
+  display: block;
+  width: 100%;
+  padding: 18px;
+  background: #324055;
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-family: 'Inter', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s;
+  margin-top: 12px;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 14px rgba(50,64,85,0.35);
+  text-transform: uppercase;
+}
+
+.submit-btn:hover { background: #2a3648; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(50,64,85,0.45); }
+.submit-btn:active { transform: translateY(0); box-shadow: 0 2px 8px rgba(50,64,85,0.25); }
+.submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* Loading overlay */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,0.92);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.spinner {
+  width: 44px; height: 44px;
+  border: 4px solid #e0e0e0;
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loading-overlay p {
+  margin-top: 16px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* Error message */
+.error-banner {
+  background: #fdecea;
+  border: 1px solid #f5c6cb;
+  color: var(--error);
+  padding: 14px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+  display: none;
+}
+
+.field-error {
+  color: var(--error);
+  font-size: 0.8rem;
+  margin-top: 6px;
+  display: none;
+}
+
+.form-section.has-error { border-color: var(--error); }
+
+/* Success page */
+.success-page {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.success-page .check-circle {
+  width: 72px; height: 72px;
+  background: var(--success);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.success-page .check-circle svg { width: 36px; height: 36px; }
+
+.success-page h2 {
+  font-size: 1.5rem;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.success-page p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* Responsive */
+@media (max-width: 500px) {
+  .container { padding: 16px 12px 40px; }
+  header { padding: 28px 0 24px; }
+  header h1 { font-size: 1.3rem; }
+  .form-section { padding: 20px 16px; }
+  .nps-scale label { width: 40px; height: 40px; font-size: 0.85rem; }
+  .nps-scale { gap: 4px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Hero — full width, colado ao topo -->
+<div class="hero">
+  <img src="Hero.webp" alt="Mastery in Design with GenAI">
+  <div class="hero-overlay">
+    <h1>Formação concluída com sucesso</h1>
+    <p>Preenche este formulário para receberes o teu certificado.</p>
+  </div>
+</div>
+
+<div class="container" id="formContainer">
+  <div class="error-banner" id="errorBanner"></div>
+
+  <form id="courseForm" novalidate>
+
+    <!-- 1. Nome -->
+    <div class="form-section" id="section-nome">
+      <label class="main-label" for="nome">
+        <span class="question-number">1</span>
+        Nome completo para o certificado<span class="required-star">*</span>
+      </label>
+      <p class="sublabel">Escreve o nome tal como queres que apareça no certificado.</p>
+      <input type="text" id="nome" name="nome" required placeholder="Nome e apelido">
+      <p class="field-error" id="error-nome">Este campo é obrigatório.</p>
+    </div>
+
+    <!-- 2. Avaliação geral -->
+    <div class="form-section" id="section-avaliacao">
+      <label class="main-label">
+        <span class="question-number">2</span>
+        Como avalias o curso no geral?<span class="required-star">*</span>
+      </label>
+      <p class="sublabel">Escolhe a opção que melhor reflete a tua experiência.</p>
+      <div class="radio-group">
+        <label class="radio-option"><input type="radio" name="avaliacao" value="5" required><span>5 — Excelente</span></label>
+        <label class="radio-option"><input type="radio" name="avaliacao" value="4"><span>4 — Bom</span></label>
+        <label class="radio-option"><input type="radio" name="avaliacao" value="3"><span>3 — Razoável</span></label>
+        <label class="radio-option"><input type="radio" name="avaliacao" value="2"><span>2 — Fraco</span></label>
+        <label class="radio-option"><input type="radio" name="avaliacao" value="1"><span>1 — Muito fraco</span></label>
+      </div>
+      <p class="field-error" id="error-avaliacao">Seleciona uma opção.</p>
+    </div>
+
+    <!-- 3. Expectativas -->
+    <div class="form-section" id="section-expectativas">
+      <label class="main-label">
+        <span class="question-number">3</span>
+        O curso correspondeu às tuas expectativas?<span class="required-star">*</span>
+      </label>
+      <p class="sublabel">&nbsp;</p>
+      <div class="radio-group">
+        <label class="radio-option"><input type="radio" name="expectativas" value="Superou as minhas expectativas" required><span>Superou as minhas expectativas</span></label>
+        <label class="radio-option"><input type="radio" name="expectativas" value="Correspondeu ao que esperava"><span>Correspondeu ao que esperava</span></label>
+        <label class="radio-option"><input type="radio" name="expectativas" value="Ficou ligeiramente abaixo"><span>Ficou ligeiramente abaixo</span></label>
+      </div>
+      <p class="field-error" id="error-expectativas">Seleciona uma opção.</p>
+    </div>
+
+    <!-- 4. Qualidade/preço -->
+    <div class="form-section" id="section-qualidade">
+      <label class="main-label">
+        <span class="question-number">4</span>
+        Como avalias a relação qualidade/preço?<span class="required-star">*</span>
+      </label>
+      <p class="sublabel">&nbsp;</p>
+      <div class="radio-group">
+        <label class="radio-option"><input type="radio" name="qualidade_preco" value="Superou claramente o valor que investi" required><span>Superou claramente o valor que investi</span></label>
+        <label class="radio-option"><input type="radio" name="qualidade_preco" value="O valor investido foi justo para o que recebi"><span>O valor investido foi justo para o que recebi</span></label>
+        <label class="radio-option"><input type="radio" name="qualidade_preco" value="Ficou abaixo do esperado pelo valor investido"><span>Ficou abaixo do esperado pelo valor investido</span></label>
+      </div>
+      <p class="field-error" id="error-qualidade">Seleciona uma opção.</p>
+    </div>
+
+    <!-- 5. NPS -->
+    <div class="form-section" id="section-nps">
+      <label class="main-label">
+        <span class="question-number">5</span>
+        Recomendarias este curso a um colega?<span class="required-star">*</span>
+      </label>
+      <p class="sublabel">Numa escala de 0 a 8, sendo 0 "não recomendaria de todo" e 8 "recomendaria totalmente".</p>
+      <div class="nps-scale">
+        <div class="nps-option"><input type="radio" name="nps" id="nps-0" value="0" required><label for="nps-0">0</label></div>
+        <div class="nps-option"><input type="radio" name="nps" id="nps-1" value="1"><label for="nps-1">1</label></div>
+        <div class="nps-option"><input type="radio" name="nps" id="nps-2" value="2"><label for="nps-2">2</label></div>
+        <div class="nps-option"><input type="radio" name="nps" id="nps-3" value="3"><label for="nps-3">3</label></div>
+        <div class="nps-option"><input type="radio" name="nps" id="nps-4" value="4"><label for="nps-4">4</label></div>
+        <div class="nps-option"><input type="radio" name="nps" id="nps-5" value="5"><label for="nps-5">5</label></div>
+        <div class="nps-option"><input type="radio" name="nps" id="nps-6" value="6"><label for="nps-6">6</label></div>
+        <div class="nps-option"><input type="radio" name="nps" id="nps-7" value="7"><label for="nps-7">7</label></div>
+        <div class="nps-option"><input type="radio" name="nps" id="nps-8" value="8"><label for="nps-8">8</label></div>
+      </div>
+      <div class="nps-labels">
+        <span>Não recomendaria</span>
+        <span>Recomendaria totalmente</span>
+      </div>
+      <p class="field-error" id="error-nps">Seleciona um valor.</p>
+    </div>
+
+    <!-- 6. Mudança de mindset -->
+    <div class="form-section" id="section-mindset">
+      <label class="main-label">
+        <span class="question-number">6</span>
+        Houve alguma mudança na forma como pensas ou ages?<span class="required-star">*</span>
+      </label>
+      <p class="sublabel">Após este curso, na tua área de atuação.</p>
+      <div class="radio-group">
+        <label class="radio-option"><input type="radio" name="mindset" value="Sim, mudei a forma como penso e já estou a aplicar" required><span>Sim, mudei a forma como penso e já estou a aplicar</span></label>
+        <label class="radio-option"><input type="radio" name="mindset" value="Sim, mudei a forma como penso, mas ainda não apliquei"><span>Sim, mudei a forma como penso, mas ainda não apliquei</span></label>
+        <label class="radio-option"><input type="radio" name="mindset" value="Ainda não senti mudança, mas estou a processar"><span>Ainda não senti mudança, mas estou a processar</span></label>
+        <label class="radio-option"><input type="radio" name="mindset" value="Não senti diferença"><span>Não senti diferença</span></label>
+      </div>
+      <p class="field-error" id="error-mindset">Seleciona uma opção.</p>
+    </div>
+
+    <!-- 7. Outras formações -->
+    <div class="form-section" id="section-formacoes">
+      <label class="main-label" for="formacoes">
+        <span class="question-number">7</span>
+        Que outras formações ou temas gostarias de explorar?<span class="required-star">*</span>
+      </label>
+      <p class="sublabel">Temas, áreas ou aprofundamentos que te interessariam numa próxima edição.</p>
+      <textarea id="formacoes" name="formacoes" required placeholder="Escreve aqui os temas que te interessam..."></textarea>
+      <p class="field-error" id="error-formacoes">Este campo é obrigatório.</p>
+    </div>
+
+    <!-- 8. Testemunho -->
+    <div class="form-section" id="section-testemunho">
+      <label class="main-label">
+        <span class="question-number">8</span>
+        Deixa o teu testemunho sobre a experiência<span class="required-star">*</span>
+      </label>
+      <p class="sublabel">Diz-nos: o que mudou para ti? O que aprendeste? Para nós significa muito o teu testemunho. Se fizeres um vídeo com 20 segundos ou mais, oferecemos-te uma mentoria extra.</p>
+
+      <div class="toggle-container">
+        <button type="button" class="toggle-btn active" id="toggleVideo" onclick="switchTestimonial('video')">Vídeo</button>
+        <button type="button" class="toggle-btn" id="toggleTexto" onclick="switchTestimonial('texto')">Texto</button>
+      </div>
+
+      <!-- Video mode -->
+      <div id="videoMode">
+        <div class="video-area">
+          <video id="videoPreview" autoplay muted playsinline style="display:none;"></video>
+          <video id="videoPlayback" controls style="display:none;"></video>
+          <div id="videoPlaceholder" style="aspect-ratio:16/9;background:#1a1a2e;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;">
+            <svg width="48" height="48" fill="none" stroke="#667" stroke-width="1.5" viewBox="0 0 24 24"><path d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9A2.25 2.25 0 0013.5 5.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
+            <span style="color:#667;font-size:0.85rem;">Clica em "Iniciar Câmera" para gravar</span>
+          </div>
+        </div>
+        <div class="video-controls">
+          <button type="button" class="btn-record" id="btnStartCamera" onclick="startCamera()">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9A2.25 2.25 0 0013.5 5.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
+            Iniciar Câmera
+          </button>
+          <button type="button" class="btn-record" id="btnRecord" onclick="startRecording()" style="display:none;">
+            &#9679; Gravar
+          </button>
+          <button type="button" class="btn-stop" id="btnStop" onclick="stopRecording()" style="display:none;">
+            &#9632; Parar
+          </button>
+          <button type="button" class="btn-retake" id="btnRetake" onclick="retakeVideo()" style="display:none;">
+            Gravar novamente
+          </button>
+          <span class="record-timer" id="recordTimer" style="display:none;">
+            <span class="recording-indicator"><span class="recording-dot"></span></span>
+            <span id="timerText">00:00</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Text mode -->
+      <div id="textoMode" style="display:none;">
+        <textarea id="testemunhoTexto" name="testemunho_texto" placeholder="Escreve o teu testemunho aqui..." style="min-height:120px;"></textarea>
+      </div>
+
+      <div class="checkbox-row">
+        <input type="checkbox" id="consentimento" name="consentimento" checked>
+        <label for="consentimento">Podem partilhar o meu testemunho para efeitos de promoção deste curso.</label>
+      </div>
+
+      <p class="field-error" id="error-testemunho">O testemunho é obrigatório. Grava um vídeo ou escreve um texto.</p>
+    </div>
+
+    <button type="submit" class="submit-btn" id="submitBtn">Enviar</button>
+  </form>
+</div>
+
+<!-- Loading overlay -->
+<div class="loading-overlay" id="loadingOverlay" style="display:none;">
+  <div class="spinner"></div>
+  <p>A enviar o formulário...</p>
+</div>
+
+<!-- Success page -->
+<div class="container" id="successPage" style="display:none;">
+  <div class="success-page">
+    <div class="check-circle">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+    </div>
+    <h2>Obrigado pela tua participação!</h2>
+    <p>O certificado será enviado para o teu e-mail.</p>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// CONFIGURAÇÃO — Alterar o URL do Google Apps Script aqui
+// ============================================================
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwOcts963e0J4QzPR7R4uqBohHJiCz9T6-pyXz9aK0tv7rL5zdu9zeWeCvM_o_X-FY6/exec';
+
+// ============================================================
+// State
+// ============================================================
+let testimonialMode = 'video';
+let mediaStream = null;
+let mediaRecorder = null;
+let recordedChunks = [];
+let videoBlob = null;
+let timerInterval = null;
+let recordSeconds = 0;
+
+// ============================================================
+// Toggle vídeo / texto
+// ============================================================
+function switchTestimonial(mode) {
+  testimonialMode = mode;
+  document.getElementById('toggleVideo').classList.toggle('active', mode === 'video');
+  document.getElementById('toggleTexto').classList.toggle('active', mode === 'texto');
+  document.getElementById('videoMode').style.display = mode === 'video' ? 'block' : 'none';
+  document.getElementById('textoMode').style.display = mode === 'texto' ? 'block' : 'none';
+}
+
+// ============================================================
+// Camera & Recording
+// ============================================================
+async function startCamera() {
+  try {
+    mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+    const preview = document.getElementById('videoPreview');
+    preview.srcObject = mediaStream;
+    preview.style.display = 'block';
+    document.getElementById('videoPlaceholder').style.display = 'none';
+    document.getElementById('videoPlayback').style.display = 'none';
+    document.getElementById('btnStartCamera').style.display = 'none';
+    document.getElementById('btnRecord').style.display = 'inline-flex';
+    document.getElementById('btnRetake').style.display = 'none';
+    document.getElementById('btnStop').style.display = 'none';
+    videoBlob = null;
+  } catch (err) {
+    alert('Não foi possível aceder à câmera. Verifica as permissões do browser.');
+  }
+}
+
+function startRecording() {
+  recordedChunks = [];
+  const options = { mimeType: getSupportedMimeType() };
+  mediaRecorder = new MediaRecorder(mediaStream, options);
+  mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) recordedChunks.push(e.data); };
+  mediaRecorder.onstop = onRecordingStop;
+  mediaRecorder.start();
+  recordSeconds = 0;
+  updateTimer();
+  timerInterval = setInterval(() => { recordSeconds++; updateTimer(); }, 1000);
+
+  document.getElementById('btnRecord').style.display = 'none';
+  document.getElementById('btnStop').style.display = 'inline-flex';
+  document.getElementById('recordTimer').style.display = 'inline-flex';
+}
+
+function stopRecording() {
+  if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+    mediaRecorder.stop();
+  }
+  clearInterval(timerInterval);
+  if (mediaStream) {
+    mediaStream.getTracks().forEach(t => t.stop());
+    mediaStream = null;
+  }
+}
+
+function onRecordingStop() {
+  const mimeType = mediaRecorder.mimeType || 'video/webm';
+  videoBlob = new Blob(recordedChunks, { type: mimeType });
+  const url = URL.createObjectURL(videoBlob);
+
+  document.getElementById('videoPreview').style.display = 'none';
+  const playback = document.getElementById('videoPlayback');
+  playback.src = url;
+  playback.style.display = 'block';
+
+  document.getElementById('btnStop').style.display = 'none';
+  document.getElementById('recordTimer').style.display = 'none';
+  document.getElementById('btnRetake').style.display = 'inline-flex';
+}
+
+function retakeVideo() {
+  videoBlob = null;
+  document.getElementById('videoPlayback').style.display = 'none';
+  document.getElementById('btnRetake').style.display = 'none';
+  startCamera();
+}
+
+function updateTimer() {
+  const m = String(Math.floor(recordSeconds / 60)).padStart(2, '0');
+  const s = String(recordSeconds % 60).padStart(2, '0');
+  document.getElementById('timerText').textContent = `${m}:${s}`;
+}
+
+function getSupportedMimeType() {
+  const types = ['video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm', 'video/mp4'];
+  for (const t of types) { if (MediaRecorder.isTypeSupported(t)) return t; }
+  return '';
+}
+
+// ============================================================
+// Validation
+// ============================================================
+function validate() {
+  let valid = true;
+
+  // Clear previous errors
+  document.querySelectorAll('.form-section').forEach(s => s.classList.remove('has-error'));
+  document.querySelectorAll('.field-error').forEach(e => e.style.display = 'none');
+
+  // 1. Nome
+  if (!document.getElementById('nome').value.trim()) {
+    showError('section-nome', 'error-nome'); valid = false;
+  }
+
+  // 2. Avaliação
+  if (!document.querySelector('input[name="avaliacao"]:checked')) {
+    showError('section-avaliacao', 'error-avaliacao'); valid = false;
+  }
+
+  // 3. Expectativas
+  if (!document.querySelector('input[name="expectativas"]:checked')) {
+    showError('section-expectativas', 'error-expectativas'); valid = false;
+  }
+
+  // 4. Qualidade/preço
+  if (!document.querySelector('input[name="qualidade_preco"]:checked')) {
+    showError('section-qualidade', 'error-qualidade'); valid = false;
+  }
+
+  // 5. NPS
+  if (!document.querySelector('input[name="nps"]:checked')) {
+    showError('section-nps', 'error-nps'); valid = false;
+  }
+
+  // 6. Mindset
+  if (!document.querySelector('input[name="mindset"]:checked')) {
+    showError('section-mindset', 'error-mindset'); valid = false;
+  }
+
+  // 7. Formações
+  if (!document.getElementById('formacoes').value.trim()) {
+    showError('section-formacoes', 'error-formacoes'); valid = false;
+  }
+
+  // 8. Testemunho
+  if (testimonialMode === 'video' && !videoBlob) {
+    showError('section-testemunho', 'error-testemunho'); valid = false;
+  } else if (testimonialMode === 'texto' && !document.getElementById('testemunhoTexto').value.trim()) {
+    showError('section-testemunho', 'error-testemunho'); valid = false;
+  }
+
+  return valid;
+}
+
+function showError(sectionId, errorId) {
+  document.getElementById(sectionId).classList.add('has-error');
+  document.getElementById(errorId).style.display = 'block';
+}
+
+// ============================================================
+// Submit
+// ============================================================
+document.getElementById('courseForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const banner = document.getElementById('errorBanner');
+  banner.style.display = 'none';
+
+  if (!validate()) {
+    const firstError = document.querySelector('.form-section.has-error');
+    if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  document.getElementById('loadingOverlay').style.display = 'flex';
+  document.getElementById('submitBtn').disabled = true;
+
+  try {
+    const formData = new FormData();
+    formData.append('nome', document.getElementById('nome').value.trim());
+    formData.append('avaliacao', document.querySelector('input[name="avaliacao"]:checked').value);
+    formData.append('expectativas', document.querySelector('input[name="expectativas"]:checked').value);
+    formData.append('qualidade_preco', document.querySelector('input[name="qualidade_preco"]:checked').value);
+    formData.append('nps', document.querySelector('input[name="nps"]:checked').value);
+    formData.append('mindset', document.querySelector('input[name="mindset"]:checked').value);
+    formData.append('formacoes', document.getElementById('formacoes').value.trim());
+    formData.append('testemunho_tipo', testimonialMode);
+    formData.append('consentimento', document.getElementById('consentimento').checked ? 'Sim' : 'Não');
+
+    if (testimonialMode === 'texto') {
+      formData.append('testemunho_texto', document.getElementById('testemunhoTexto').value.trim());
+    } else if (testimonialMode === 'video' && videoBlob) {
+      formData.append('testemunho_texto', '');
+      // Convert video to base64 for Apps Script
+      const reader = new FileReader();
+      const base64 = await new Promise((resolve, reject) => {
+        reader.onload = () => resolve(reader.result.split(',')[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(videoBlob);
+      });
+      formData.append('video_base64', base64);
+      formData.append('video_mimetype', videoBlob.type);
+    }
+
+    const response = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) throw new Error('Erro no servidor');
+
+    const result = await response.json();
+    if (result.status === 'error') throw new Error(result.message || 'Erro ao processar');
+
+    // Success
+    document.getElementById('formContainer').style.display = 'none';
+    document.getElementById('successPage').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (err) {
+    banner.textContent = 'Ocorreu um erro ao enviar o formulário. Por favor, tenta novamente. (' + err.message + ')';
+    banner.style.display = 'block';
+    banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  } finally {
+    document.getElementById('loadingOverlay').style.display = 'none';
+    document.getElementById('submitBtn').disabled = false;
+  }
+});
+</script>
+
+<!--
+// ============================================================
+// GOOGLE APPS SCRIPT — Deployar como Web App
+// ============================================================
+// 1. Criar um novo projeto em https://script.google.com
+// 2. Colar o código abaixo
+// 3. Configurar SHEET_ID e DRIVE_FOLDER_ID
+// 4. Deploy > New deployment > Web App
+//    - Execute as: Me
+//    - Who has access: Anyone
+// 5. Copiar o URL e colocar na variável APPS_SCRIPT_URL no HTML
+// ============================================================
+
+// ===== CONFIGURAÇÃO =====
+var SHEET_ID = 'YOUR_GOOGLE_SHEET_ID';        // ID da Google Sheet
+var DRIVE_FOLDER_ID = 'YOUR_DRIVE_FOLDER_ID'; // ID da pasta no Google Drive para vídeos
+var SHEET_NAME = 'Respostas';                  // Nome da aba na Sheet
+// =========================
+
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
+    if (!sheet) {
+      sheet = SpreadsheetApp.openById(SHEET_ID).insertSheet(SHEET_NAME);
+      sheet.appendRow([
+        'Timestamp',
+        'Nome',
+        'Avaliação Geral',
+        'Expectativas',
+        'Qualidade/Preço',
+        'NPS',
+        'Mudança Mindset',
+        'Outras Formações',
+        'Testemunho Tipo',
+        'Testemunho Texto',
+        'Consentimento',
+        'Vídeo URL'
+      ]);
+    }
+
+    var params = e.parameter;
+    var videoUrl = '';
+
+    // Se houver vídeo em base64, fazer upload para o Drive
+    if (params.video_base64 && params.video_base64.length > 0) {
+      var decoded = Utilities.base64Decode(params.video_base64);
+      var blob = Utilities.newBlob(decoded, params.video_mimetype || 'video/webm',
+        'testemunho_' + params.nome.replace(/[^a-zA-Z0-9]/g, '_') + '_' + new Date().getTime() + '.webm');
+      var folder = DriveApp.getFolderById(DRIVE_FOLDER_ID);
+      var file = folder.createFile(blob);
+      file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+      videoUrl = file.getUrl();
+    }
+
+    // Escrever linha na Sheet
+    sheet.appendRow([
+      new Date(),
+      params.nome || '',
+      params.avaliacao || '',
+      params.expectativas || '',
+      params.qualidade_preco || '',
+      params.nps || '',
+      params.mindset || '',
+      params.formacoes || '',
+      params.testemunho_tipo || '',
+      params.testemunho_texto || '',
+      params.consentimento || '',
+      videoUrl
+    ]);
+
+    return ContentService.createTextOutput(JSON.stringify({ status: 'success' }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({ status: 'error', message: error.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// Necessário para CORS funcionar com o fetch do browser
+function doGet(e) {
+  return ContentService.createTextOutput(JSON.stringify({ status: 'ok' }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+-->
+
+</body>
+</html>
