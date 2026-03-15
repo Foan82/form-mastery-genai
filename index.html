@@ -358,12 +358,10 @@ textarea { resize: vertical; min-height: 100px; }
 .video-overlay-controls {
   position: absolute;
   bottom: 16px;
-  left: 0;
-  right: 0;
+  right: 16px;
   display: flex;
   gap: 10px;
   align-items: center;
-  justify-content: center;
   z-index: 2;
 }
 
@@ -401,7 +399,7 @@ textarea { resize: vertical; min-height: 100px; }
 .recording-indicator {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .recording-dot {
@@ -725,7 +723,7 @@ textarea { resize: vertical; min-height: 100px; }
               Iniciar gravação
             </button>
             <button type="button" class="btn-stop" id="btnStop" onclick="stopRecording()" style="display:none;">
-              &#9632; Parar
+              Parar gravação
             </button>
           </div>
           <!-- Retake button below video after recording -->
