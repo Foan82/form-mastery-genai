@@ -72,18 +72,42 @@ body {
 
 .hero-overlay h1 {
   font-family: 'Inter', sans-serif;
-  font-size: 2.2rem;
+  font-size: clamp(1.8rem, 5vw, 3.5rem);
   font-weight: 700;
   color: #fff;
   line-height: 1.15;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   text-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
-.hero-overlay p {
+.hero-overlay .hero-desc {
   color: rgba(255,255,255,0.9);
-  font-size: 0.95rem;
+  font-size: clamp(0.9rem, 2vw, 1.15rem);
   text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  line-height: 1.6;
+  max-width: 520px;
+}
+
+.hero-overlay .hero-tagline {
+  color: rgba(255,255,255,0.75);
+  font-size: clamp(0.8rem, 1.5vw, 0.95rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  margin-top: 16px;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.hero-cta {
+  color: rgba(255,255,255,0.7);
+  font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  text-align: center;
+  white-space: nowrap;
 }
 
 /* Hero scroll arrow */
@@ -612,9 +636,11 @@ textarea { resize: vertical; min-height: 100px; }
 <div class="hero">
   <img src="Hero_new.webp" alt="Mastery in Design with GenAI">
   <div class="hero-overlay">
-    <h1>Formação concluída com sucesso</h1>
-    <p>Preenche este formulário para receberes o teu certificado.</p>
+    <h1>Parabéns, esta formação<br>chegou ao fim.</h1>
+    <p class="hero-desc">Mas isto é só o começo, de hoje em diante podes contar connosco, e com um novo mindset.</p>
+    <p class="hero-tagline">AI First · Human Always.</p>
   </div>
+  <p class="hero-cta">Preenche o formulário abaixo para receberes o teu certificado.</p>
   <button class="hero-scroll-arrow" onclick="document.getElementById('section-nome').scrollIntoView({behavior:'smooth'})" aria-label="Scroll para o formulário">
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="6 9 12 15 18 9"/>
