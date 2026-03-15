@@ -240,6 +240,7 @@ textarea { resize: vertical; min-height: 100px; }
 
 .nps-scale .nps-option {
   position: relative;
+  flex: 1;
 }
 
 .nps-scale input[type="radio"] {
@@ -254,7 +255,7 @@ textarea { resize: vertical; min-height: 100px; }
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
+  width: 100%;
   height: 48px;
   border: 1.5px solid var(--border);
   border-radius: 8px;
@@ -277,13 +278,6 @@ textarea { resize: vertical; min-height: 100px; }
   border-color: var(--primary);
 }
 
-.nps-labels {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 8px;
-  font-size: 0.75rem;
-  color: var(--text-secondary);
-}
 
 /* Toggle */
 .toggle-container {
@@ -536,8 +530,9 @@ textarea { resize: vertical; min-height: 100px; }
   header { padding: 28px 0 24px; }
   header h1 { font-size: 1.3rem; }
   .form-section { padding: 20px 16px; }
-  .nps-scale label { width: 40px; height: 40px; font-size: 0.85rem; }
+  .nps-scale label { height: 40px; font-size: 0.85rem; }
   .nps-scale { gap: 4px; }
+  .btn-record { width: 100%; justify-content: center; }
 }
 </style>
 </head>
@@ -621,21 +616,13 @@ textarea { resize: vertical; min-height: 100px; }
         <span class="question-number">5</span>
         Recomendarias este curso a um colega?<span class="required-star">*</span>
       </label>
-      <p class="sublabel">Numa escala de 0 a 8, sendo 0 "não recomendaria de todo" e 8 "recomendaria totalmente".</p>
+      <p class="sublabel">Numa escala de 1 a 5, sendo 1 "não recomendaria de todo" e 5 "recomendaria totalmente".</p>
       <div class="nps-scale">
-        <div class="nps-option"><input type="radio" name="nps" id="nps-0" value="0" required><label for="nps-0">0</label></div>
-        <div class="nps-option"><input type="radio" name="nps" id="nps-1" value="1"><label for="nps-1">1</label></div>
+        <div class="nps-option"><input type="radio" name="nps" id="nps-1" value="1" required><label for="nps-1">1</label></div>
         <div class="nps-option"><input type="radio" name="nps" id="nps-2" value="2"><label for="nps-2">2</label></div>
         <div class="nps-option"><input type="radio" name="nps" id="nps-3" value="3"><label for="nps-3">3</label></div>
         <div class="nps-option"><input type="radio" name="nps" id="nps-4" value="4"><label for="nps-4">4</label></div>
         <div class="nps-option"><input type="radio" name="nps" id="nps-5" value="5"><label for="nps-5">5</label></div>
-        <div class="nps-option"><input type="radio" name="nps" id="nps-6" value="6"><label for="nps-6">6</label></div>
-        <div class="nps-option"><input type="radio" name="nps" id="nps-7" value="7"><label for="nps-7">7</label></div>
-        <div class="nps-option"><input type="radio" name="nps" id="nps-8" value="8"><label for="nps-8">8</label></div>
-      </div>
-      <div class="nps-labels">
-        <span>Não recomendaria</span>
-        <span>Recomendaria totalmente</span>
       </div>
       <p class="field-error" id="error-nps">Seleciona um valor.</p>
     </div>
@@ -663,7 +650,7 @@ textarea { resize: vertical; min-height: 100px; }
         Que outras formações ou temas gostarias de explorar?<span class="required-star">*</span>
       </label>
       <p class="sublabel">Temas, áreas ou aprofundamentos que te interessariam numa próxima edição.</p>
-      <textarea id="formacoes" name="formacoes" required placeholder="Escreve aqui os temas que te interessam..."></textarea>
+      <textarea id="formacoes" name="formacoes" required placeholder="Escreve aqui o(s) tema(s) que te interessam..."></textarea>
       <p class="field-error" id="error-formacoes">Este campo é obrigatório.</p>
     </div>
 
@@ -685,9 +672,9 @@ textarea { resize: vertical; min-height: 100px; }
         <div class="video-area">
           <video id="videoPreview" autoplay muted playsinline style="display:none;"></video>
           <video id="videoPlayback" controls style="display:none;"></video>
-          <div id="videoPlaceholder" style="aspect-ratio:16/9;background:#1a1a2e;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;">
-            <svg width="48" height="48" fill="none" stroke="#667" stroke-width="1.5" viewBox="0 0 24 24"><path d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9A2.25 2.25 0 0013.5 5.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
-            <span style="color:#667;font-size:0.85rem;">Clica em "Iniciar Câmera" para gravar</span>
+          <div id="videoPlaceholder" style="aspect-ratio:16/9;background:#d5dbe3;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;">
+            <svg width="48" height="48" fill="none" stroke="#7a8699" stroke-width="1.5" viewBox="0 0 24 24"><path d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9A2.25 2.25 0 0013.5 5.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
+            <span style="color:#5a6577;font-size:0.85rem;">Clica em "Iniciar Câmera" para gravar</span>
           </div>
         </div>
         <div class="video-controls">
