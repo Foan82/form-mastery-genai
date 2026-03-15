@@ -38,11 +38,11 @@ body {
   padding: 24px 20px 60px;
 }
 
-/* Hero — full width, flush to top */
+/* Hero — fullscreen */
 .hero {
   position: relative;
   width: 100%;
-  min-height: 260px;
+  height: 100vh;
   overflow: hidden;
   background: var(--primary);
 }
@@ -60,7 +60,7 @@ body {
 .hero-overlay {
   position: relative;
   z-index: 1;
-  min-height: 260px;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.45);
   display: flex;
   flex-direction: column;
@@ -84,6 +84,39 @@ body {
   color: rgba(255,255,255,0.9);
   font-size: 0.95rem;
   text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+/* Hero scroll arrow */
+.hero-scroll-arrow {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hero-scroll-arrow svg {
+  width: 32px;
+  height: 32px;
+  stroke: #fff;
+  opacity: 0.85;
+  animation: bounceArrow 2s ease-in-out infinite;
+}
+
+@keyframes bounceArrow {
+  0%, 100% { transform: translateY(0); opacity: 0.85; }
+  50% { transform: translateY(10px); opacity: 1; }
 }
 
 header {
@@ -575,13 +608,18 @@ textarea { resize: vertical; min-height: 100px; }
 </head>
 <body>
 
-<!-- Hero — full width, colado ao topo -->
+<!-- Hero — fullscreen -->
 <div class="hero">
-  <img src="Hero.webp" alt="Mastery in Design with GenAI">
+  <img src="Hero_new.webp" alt="Mastery in Design with GenAI">
   <div class="hero-overlay">
     <h1>Formação concluída com sucesso</h1>
     <p>Preenche este formulário para receberes o teu certificado.</p>
   </div>
+  <button class="hero-scroll-arrow" onclick="document.getElementById('section-nome').scrollIntoView({behavior:'smooth'})" aria-label="Scroll para o formulário">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"/>
+    </svg>
+  </button>
 </div>
 
 <div class="container" id="formContainer">
