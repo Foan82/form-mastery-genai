@@ -933,35 +933,38 @@ document.getElementById('courseForm').addEventListener('submit', async (e) => {
   document.getElementById('submitBtn').disabled = true;
 
   try {
-    const formData = new FormData();
-    formData.append('nome', document.getElementById('nome').value.trim());
-    formData.append('avaliacao', document.querySelector('input[name="avaliacao"]:checked').value);
-    formData.append('expectativas', document.querySelector('input[name="expectativas"]:checked').value);
-    formData.append('qualidade_preco', document.querySelector('input[name="qualidade_preco"]:checked').value);
-    formData.append('nps', document.querySelector('input[name="nps"]:checked').value);
-    formData.append('mindset', document.querySelector('input[name="mindset"]:checked').value);
-    formData.append('formacoes', document.getElementById('formacoes').value.trim());
-    formData.append('testemunho_tipo', testimonialMode);
-    formData.append('consentimento', document.getElementById('consentimento').checked ? 'Sim' : 'Não');
+    const payload = {
+      nome: document.getElementById('nome').value.trim(),
+      avaliacao: document.querySelector('input[name="avaliacao"]:checked').value,
+      expectativas: document.querySelector('input[name="expectativas"]:checked').value,
+      qualidade_preco: document.querySelector('input[name="qualidade_preco"]:checked').value,
+      nps: document.querySelector('input[name="nps"]:checked').value,
+      mindset: document.querySelector('input[name="mindset"]:checked').value,
+      formacoes: document.getElementById('formacoes').value.trim(),
+      testemunho_tipo: testimonialMode,
+      consentimento: document.getElementById('consentimento').checked ? 'Sim' : 'Não',
+      testemunho_texto: '',
+      video_base64: '',
+      video_mimetype: ''
+    };
 
     if (testimonialMode === 'texto') {
-      formData.append('testemunho_texto', document.getElementById('testemunhoTexto').value.trim());
+      payload.testemunho_texto = document.getElementById('testemunhoTexto').value.trim();
     } else if (testimonialMode === 'video' && videoBlob) {
-      formData.append('testemunho_texto', '');
-      // Convert video to base64 for Apps Script
       const reader = new FileReader();
       const base64 = await new Promise((resolve, reject) => {
         reader.onload = () => resolve(reader.result.split(',')[1]);
         reader.onerror = reject;
         reader.readAsDataURL(videoBlob);
       });
-      formData.append('video_base64', base64);
-      formData.append('video_mimetype', videoBlob.type);
+      payload.video_base64 = base64;
+      payload.video_mimetype = videoBlob.type;
     }
 
     const response = await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
-      body: formData,
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(payload),
     });
 
     if (!response.ok) throw new Error('Erro no servidor');
@@ -1024,7 +1027,7 @@ function doPost(e) {
       ]);
     }
 
-    var params = e.parameter;
+    var params = JSON.parse(e.postData.contents);
     var videoUrl = '';
 
     // Se houver vídeo em base64, fazer upload para o Drive
