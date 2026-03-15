@@ -110,6 +110,17 @@ body {
   white-space: nowrap;
 }
 
+/* Hero logo */
+.hero-logo {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  height: 48px;
+  width: auto;
+}
+
 /* Hero scroll arrow */
 .hero-scroll-arrow {
   position: absolute;
@@ -635,6 +646,7 @@ textarea { resize: vertical; min-height: 100px; }
 <!-- Hero — fullscreen -->
 <div class="hero">
   <img src="Hero_new.webp" alt="Mastery in Design with GenAI">
+  <img src="Logo_FFFDA.svg" alt="FFFDA" class="hero-logo">
   <div class="hero-overlay">
     <h1>Parabéns, chegaste ao fim<br>desta formação.</h1>
     <p class="hero-desc">Mas isto é só o começo. De hoje em diante, contas connosco e com um novo mindset.</p>
@@ -761,7 +773,7 @@ textarea { resize: vertical; min-height: 100px; }
         <span class="question-number">8</span>
         Deixa o teu testemunho sobre a experiência<span class="required-star">*</span>
       </label>
-      <p class="sublabel">Diz-nos o que mudou para ti, O que aprendeste. Para nós significa muito termos o teu testemunho em video, basta uns segundos.</p>
+      <p class="sublabel">Diz-nos o que mudou para ti e/ou o que aprendeste. Para nós significa muito termos o teu testemunho em video, são só uns segundos.</p>
 
       <div class="toggle-container">
         <button type="button" class="toggle-btn active" id="toggleVideo" onclick="switchTestimonial('video')">Vídeo</button>
