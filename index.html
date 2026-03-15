@@ -349,7 +349,7 @@ textarea { resize: vertical; min-height: 100px; }
 }
 
 .video-placeholder .tap-label {
-  color: #BA3E95;
+  color: #C0392B;
   font-size: 0.9rem;
   font-weight: 600;
 }
@@ -358,10 +358,12 @@ textarea { resize: vertical; min-height: 100px; }
 .video-overlay-controls {
   position: absolute;
   bottom: 16px;
-  right: 16px;
+  left: 0;
+  right: 0;
   display: flex;
   gap: 10px;
   align-items: center;
+  justify-content: center;
   z-index: 2;
 }
 
@@ -380,10 +382,10 @@ textarea { resize: vertical; min-height: 100px; }
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
-.btn-record { background: #BA3E95; color: #fff; }
-.btn-record:hover { background: #a03580; }
-.btn-stop { background: #333; color: #fff; }
-.btn-stop:hover { background: #111; }
+.btn-record { background: #C0392B; color: #fff; }
+.btn-record:hover { background: #A93226; }
+.btn-stop { background: #324055; color: #fff; }
+.btn-stop:hover { background: #2a3648; }
 .btn-retake { background: rgba(255,255,255,0.95); color: var(--text); }
 .btn-retake:hover { background: #fff; }
 
@@ -404,7 +406,7 @@ textarea { resize: vertical; min-height: 100px; }
 
 .recording-dot {
   width: 10px; height: 10px;
-  background: var(--error);
+  background: #C0392B;
   border-radius: 50%;
   animation: blink 1s infinite;
 }
@@ -720,7 +722,7 @@ textarea { resize: vertical; min-height: 100px; }
               <span id="timerText">00:00</span>
             </span>
             <button type="button" class="btn-record" id="btnRecord" onclick="startRecording()" style="display:none;">
-              &#9679; Gravar
+              Iniciar gravação
             </button>
             <button type="button" class="btn-stop" id="btnStop" onclick="stopRecording()" style="display:none;">
               &#9632; Parar
