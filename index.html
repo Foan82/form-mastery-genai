@@ -93,7 +93,7 @@ body {
   font-size: clamp(0.8rem, 1.5vw, 0.95rem);
   font-weight: 600;
   letter-spacing: 0.08em;
-  margin-top: 8px;
+  margin-top: 4px;
   text-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
 
@@ -117,8 +117,8 @@ body {
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
-  height: 32px;
-  width: 31px;
+  height: auto;
+  width: 140px;
   object-fit: contain;
 }
 
@@ -630,6 +630,29 @@ textarea { resize: vertical; min-height: 100px; }
 }
 
 
+/* Disclaimer */
+.disclaimer {
+  margin-top: 24px;
+  padding: 20px 0;
+  border-top: 1px solid var(--border);
+}
+
+.disclaimer p {
+  font-size: 0.75rem;
+  color: #888;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.disclaimer p:last-child {
+  margin-bottom: 0;
+}
+
+.disclaimer a {
+  color: #888;
+  text-decoration: underline;
+}
+
 /* Responsive */
 @media (max-width: 500px) {
   .container { padding: 16px 12px 40px; }
@@ -647,7 +670,7 @@ textarea { resize: vertical; min-height: 100px; }
 <!-- Hero — fullscreen -->
 <div class="hero">
   <img src="Hero_new.webp" alt="Mastery in Design with GenAI">
-  <img src="Logo_FFFDA.svg" alt="FFFDA" class="hero-logo">
+  <img src="AIcademy_Logo.svg" alt="AIcademy" class="hero-logo">
   <div class="hero-overlay">
     <h1>Mastery in Design<br>with Gen AI</h1>
     <p class="hero-desc">A formação chegou ao fim, mas o teu novo mindset começa agora</p>
@@ -826,6 +849,11 @@ textarea { resize: vertical; min-height: 100px; }
     </div>
 
     <button type="submit" class="submit-btn" id="submitBtn">Enviar</button>
+
+    <div class="disclaimer">
+      <p>A escola AI✦cademy, assim como o research Lab AI Repository e o podcast ConversAI são iniciativas da FFF Design Assembly também conhecida por FFFDA com website em <a href="https://www.fffdesignassembly.com" target="_blank">www.fffdesignassembly.com</a></p>
+      <p>Ao submeter este formulário, estou a confirmar que autorizo a FFFDA e a AI✦cademy a recolher e tratar os dados disponibilizados neste formulário, com as finalidades de me contactarem, partilhar conteúdos relacionados com a formação em causa, bem como enviar informações sobre formações, eventos, produtos e serviços da empresa. Os meus dados serão tratados de forma confidencial e não serão partilhados com terceiros. Tenho o direito de aceder, retificar ou eliminar os meus dados a qualquer momento, nos termos da legislação em vigor. Confirmo que li e aceito esta política de privacidade.</p>
+    </div>
   </form>
 </div>
 
