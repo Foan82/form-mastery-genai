@@ -600,6 +600,11 @@ textarea { resize: vertical; min-height: 100px; }
 .success-page {
   text-align: center;
   padding: 60px 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .success-page .check-circle {
@@ -633,7 +638,7 @@ textarea { resize: vertical; min-height: 100px; }
 /* Disclaimer */
 .disclaimer {
   margin-top: 24px;
-  padding: 20px 0;
+  padding: 20px 16px;
   border-top: 1px solid var(--border);
 }
 
@@ -857,7 +862,7 @@ textarea { resize: vertical; min-height: 100px; }
       <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
     </div>
     <h2>Obrigado pela tua participação!</h2>
-    <p>O certificado será enviado para o teu e-mail. Até já.</p>
+    <p>O certificado será enviado para o teu e-mail.</p>
   </div>
 </div>
 
@@ -1093,6 +1098,7 @@ document.getElementById('courseForm').addEventListener('submit', async (e) => {
     if (result.status === 'error') throw new Error(result.message || 'Erro ao processar');
 
     // Success
+    document.querySelector('.hero').style.display = 'none';
     document.getElementById('formContainer').style.display = 'none';
     document.getElementById('successPage').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
