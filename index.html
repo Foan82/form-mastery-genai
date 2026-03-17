@@ -551,12 +551,14 @@ textarea { resize: vertical; min-height: 100px; }
 .loading-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(255,255,255,0.92);
+  background: rgba(255,255,255,0.96);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  padding: 40px 24px;
+  text-align: center;
 }
 
 .spinner {
@@ -569,10 +571,26 @@ textarea { resize: vertical; min-height: 100px; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
-.loading-overlay p {
-  margin-top: 16px;
-  font-weight: 500;
+.loading-overlay .loading-title {
+  margin-top: 24px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.loading-overlay .loading-desc {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  font-weight: 400;
   color: var(--text-secondary);
+  max-width: 400px;
+  line-height: 1.5;
+}
+
+.loading-overlay .loading-warn {
+  margin-top: 16px;
+  font-size: 0.8rem;
+  color: #999;
 }
 
 /* Error message */
@@ -794,7 +812,7 @@ textarea { resize: vertical; min-height: 100px; }
       <label class="main-label">
         <span class="question-number">8</span>
         Deixa o teu testemunho sobre a experiência      </label>
-      <p class="sublabel">Diz-nos o que mudou para ti e/ou o que aprendeste. Para nós significa muito termos o teu testemunho em video, são só uns segundos.</p>
+      <p class="sublabel">Diz-nos o que mudou para ti e/ou o que aprendeste. Para nós significa muito termos o teu testemunho em vídeo (máx. 60 segundos).</p>
 
       <div class="toggle-container">
         <button type="button" class="toggle-btn active" id="toggleVideo" onclick="switchTestimonial('video')">Vídeo</button>
@@ -852,7 +870,9 @@ textarea { resize: vertical; min-height: 100px; }
 <!-- Loading overlay -->
 <div class="loading-overlay" id="loadingOverlay" style="display:none;">
   <div class="spinner"></div>
-  <p>A enviar o formulário...</p>
+  <p class="loading-title" id="loadingTitle">A enviar o formulário...</p>
+  <p class="loading-desc" id="loadingDesc"></p>
+  <p class="loading-warn" id="loadingWarn"></p>
 </div>
 
 <!-- Success page -->
@@ -882,6 +902,8 @@ let recordedChunks = [];
 let videoBlob = null;
 let timerInterval = null;
 let recordSeconds = 0;
+const MAX_RECORD_SECONDS = 60;
+let loadingMsgInterval = null;
 
 // ============================================================
 // Toggle vídeo / texto
@@ -917,6 +939,7 @@ async function startCamera() {
 
 function startRecording() {
   recordedChunks = [];
+  document.getElementById('timerText').style.color = '';
   const options = { mimeType: getSupportedMimeType() };
   mediaRecorder = new MediaRecorder(mediaStream, options);
   mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) recordedChunks.push(e.data); };
@@ -924,7 +947,18 @@ function startRecording() {
   mediaRecorder.start();
   recordSeconds = 0;
   updateTimer();
-  timerInterval = setInterval(() => { recordSeconds++; updateTimer(); }, 1000);
+  timerInterval = setInterval(() => {
+    recordSeconds++;
+    updateTimer();
+    // Warning at 50s — timer turns red
+    if (recordSeconds >= 50) {
+      document.getElementById('timerText').style.color = '#C0392B';
+    }
+    // Auto-stop at 60s
+    if (recordSeconds >= MAX_RECORD_SECONDS) {
+      stopRecording();
+    }
+  }, 1000);
 
   document.getElementById('btnRecord').style.display = 'none';
   document.getElementById('btnStop').style.display = 'inline-flex';
@@ -1051,8 +1085,40 @@ document.getElementById('courseForm').addEventListener('submit', async (e) => {
     return;
   }
 
+  const isVideo = testimonialMode === 'video' && videoBlob;
+  const loadingTitle = document.getElementById('loadingTitle');
+  const loadingDesc = document.getElementById('loadingDesc');
+  const loadingWarn = document.getElementById('loadingWarn');
+
+  if (isVideo) {
+    loadingTitle.textContent = 'A carregar o teu vídeo...';
+    loadingDesc.textContent = 'Obrigado por partilhares a tua experiência connosco. Significa muito para nós.';
+    loadingWarn.textContent = 'Por favor não feches esta página.';
+  } else {
+    loadingTitle.textContent = 'A enviar o formulário...';
+    loadingDesc.textContent = '';
+    loadingWarn.textContent = '';
+  }
+
   document.getElementById('loadingOverlay').style.display = 'flex';
   document.getElementById('submitBtn').disabled = true;
+
+  // Rotating messages for video upload (every 30s)
+  let loadingMsgCount = 0;
+  const videoMessages = [
+    { title: 'Estamos quase...', desc: 'O vídeo está a ser processado. Obrigado pela paciência.' },
+    { title: 'Só mais um momento...', desc: 'A tua ligação pode estar mais lenta, mas estamos a trabalhar nisso.' },
+    { title: 'Ainda a enviar...', desc: 'Vídeos maiores demoram um pouco mais. Está quase.' },
+    { title: 'Quase lá...', desc: 'Obrigado por esperares. O teu testemunho é muito importante para nós.' },
+  ];
+  if (isVideo) {
+    loadingMsgInterval = setInterval(() => {
+      const msg = videoMessages[loadingMsgCount % videoMessages.length];
+      loadingTitle.textContent = msg.title;
+      loadingDesc.textContent = msg.desc;
+      loadingMsgCount++;
+    }, 30000);
+  }
 
   try {
     const val = (name) => { const el = document.querySelector('input[name="'+name+'"]:checked'); return el ? el.value : ''; };
@@ -1105,6 +1171,7 @@ document.getElementById('courseForm').addEventListener('submit', async (e) => {
     banner.style.display = 'block';
     banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
   } finally {
+    if (loadingMsgInterval) { clearInterval(loadingMsgInterval); loadingMsgInterval = null; }
     document.getElementById('loadingOverlay').style.display = 'none';
     document.getElementById('submitBtn').disabled = false;
   }
