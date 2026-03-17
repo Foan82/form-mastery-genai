@@ -1055,13 +1055,14 @@ document.getElementById('courseForm').addEventListener('submit', async (e) => {
   document.getElementById('submitBtn').disabled = true;
 
   try {
+    const val = (name) => { const el = document.querySelector('input[name="'+name+'"]:checked'); return el ? el.value : ''; };
     const payload = {
       nome: document.getElementById('nome').value.trim(),
-      avaliacao: document.querySelector('input[name="avaliacao"]:checked').value,
-      expectativas: document.querySelector('input[name="expectativas"]:checked').value,
-      qualidade_preco: document.querySelector('input[name="qualidade_preco"]:checked').value,
-      nps: document.querySelector('input[name="nps"]:checked').value,
-      mindset: document.querySelector('input[name="mindset"]:checked').value,
+      avaliacao: val('avaliacao'),
+      expectativas: val('expectativas'),
+      qualidade_preco: val('qualidade_preco'),
+      nps: val('nps'),
+      mindset: val('mindset'),
       formacoes: document.getElementById('formacoes').value.trim(),
       testemunho_tipo: testimonialMode,
       consentimento: 'Sim',
@@ -1086,18 +1087,15 @@ document.getElementById('courseForm').addEventListener('submit', async (e) => {
       payload.video_mimetype = videoBlob.type;
     }
 
-    const response = await fetch(APPS_SCRIPT_URL, {
+    // mode: 'no-cors' fixes Safari/mobile CORS redirect issues with Apps Script
+    await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
+      mode: 'no-cors',
       headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify(payload),
     });
 
-    if (!response.ok) throw new Error('Erro no servidor');
-
-    const result = await response.json();
-    if (result.status === 'error') throw new Error(result.message || 'Erro ao processar');
-
-    // Success
+    // Success (no-cors returns opaque response, data is sent regardless)
     document.querySelector('.hero').style.display = 'none';
     document.getElementById('formContainer').style.display = 'none';
     document.getElementById('successPage').style.display = 'block';
